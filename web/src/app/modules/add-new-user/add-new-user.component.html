@@ -1,0 +1,212 @@
+<!-- <div
+  class="add-new-user-container d-flex justify-content-center align-items-center vh-100 text-white"
+>
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-12 col-md-7 mx-auto bg-dark px-4 py-4 rounded-3 d-flex flex-column gap-5 align-items-center"
+      >
+        
+        <div class="form-header">
+          <h4 class="text-center">Add New User</h4>
+        </div>
+
+        <form
+          [formGroup]="addNewUserForm"
+          (ngSubmit)="onSubmit()"
+          class="w-100 px-5"
+        >
+          <div
+            class="form-group d-flex flex-column gap-3 w-100 justify-content-center"
+          >
+            
+            <div class="name d-flex gap-3">
+              <div class="first-name d-flex gap-2 align-items-center">
+                <label for="first-name">First Name:</label>
+                <input
+                  type="text"
+                  name="first-name"
+                  id="first-name"
+                  formControlName="first_name"
+                  placeholder="First Name"
+                  required
+                />
+              </div>
+              <div class="last-name d-flex gap-2 align-items-center">
+                <label for="last-name">Last Name:</label>
+                <input
+                  type="text"
+                  name="last-name"
+                  id="last-name"
+                  formControlName="last_name"
+                  placeholder="Last Name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="email d-flex gap-2 align-content-center">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                formControlName="email"
+                placeholder="Email"
+                required
+                class="w-100"
+              />
+            </div>
+            <div class="password d-flex gap-2 align-content-center">
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                formControlName="password"
+                placeholder="Password"
+                required
+                class="w-100"
+              />
+            </div>
+            <div class="mobile-number d-flex gap-2 align-content-center">
+              <label for="mobile-number">Mobile Number:</label>
+              <input
+                type="number"
+                name="mobile-number"
+                id="mobile-number"
+                formControlName="mobile_number"
+                placeholder="Mobile Number"
+                required
+                class="w-100"
+              />
+            </div>
+            <div class="buttons">
+              <button class="btn btn-danger">Cancel</button>
+              <button class="btn btn-success">Add New User</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div
+  class="add-new-user-container z-3 d-flex justify-content-center align-items-center min-vh-100 text-white custom-blur-bg"
+  *ngIf="isModalOpen()"
+>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8 col-xl-6">
+        <div class="bg-dark p-4 p-md-5 rounded-3 shadow-lg">
+          <!-- Form Header -->
+          <div class="text-center mb-4">
+            <h4 class="fw-bold">
+              {{ getEditMode() ? "Edit User Detail" : "Add New User" }}
+            </h4>
+          </div>
+
+          <form
+            [formGroup]="addNewUserForm"
+            (ngSubmit)="onSubmit()"
+            class="w-100"
+          >
+            <div class="d-flex flex-column gap-4">
+              <!-- Name Row -->
+              <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                  <label for="first-name" class="form-label">First Name</label>
+                  <input
+                    type="text"
+                    id="first-name"
+                    formControlName="first_name"
+                    class="form-control"
+                    placeholder="First Name"
+                  />
+                </div>
+                <div class="col-12 col-sm-6">
+                  <label for="last-name" class="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    id="last-name"
+                    formControlName="last_name"
+                    class="form-control"
+                    placeholder="Last Name"
+                  />
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  class="form-control"
+                  placeholder="example@domain.com"
+                />
+              </div>
+
+              <!-- Password -->
+              <div class="position-relative">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  id="password"
+                  formControlName="password"
+                  class="form-control pe-5"
+                  placeholder="Password"
+                />
+                <span
+                  class="position-absolute z-3 translate-middle-y pe-1"
+                  style="top: 70%; right: 10px; cursor: pointer"
+                  (click)="togglePasswordVisibility()"
+                >
+                  <i
+                    [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+                    style="color: black"
+                  ></i>
+                </span>
+              </div>
+
+              <!-- Mobile Number -->
+              <div>
+                <label for="mobile-number" class="form-label"
+                  >Mobile Number</label
+                >
+                <input
+                  type="tel"
+                  id="mobile-number"
+                  formControlName="mobile_number"
+                  class="form-control"
+                  placeholder="Moboile Number"
+                  pattern="[0-9]{10}"
+                />
+              </div>
+
+              <!-- Buttons -->
+              <div class="d-flex justify-content-end gap-3 mt-4">
+                <button
+                  type="button"
+                  (click)="toggleModal()"
+                  class="btn btn-outline-light btn-sm w-100 w-sm-auto"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  [disabled]="addNewUserForm.invalid"
+                  (click)="onSubmit()"
+                  class="btn btn-success btn-sm w-100 w-sm-auto"
+                >
+                  {{ getEditMode() ? "Edit User Detail" : "Add New User" }}
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

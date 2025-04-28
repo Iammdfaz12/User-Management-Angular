@@ -1,0 +1,55 @@
+<div class="">
+  <h2 class="text-center pt-3">User Management Dashboard</h2>
+</div>
+<div
+  class="main-container container mx-auto row d-flex justify-content-center align-items-center"
+>
+  <div
+    class="login-container container-fluid border border-2 border-black rounded-3 p-4 col-12 col-md-6 col-lg-4"
+  >
+    <form
+      [formGroup]="loginForm"
+      class="d-flex flex-column justify-content-center align-items-center gap-4"
+    >
+      <h3 class="text-center">Register</h3>
+      <div
+        class="login-feilds d-flex flex-column gap-3 align-self-start w-100 px-3"
+      >
+        <div class="login-field-email d-flex flex-column gap-1">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="p-1"
+            formControlName="email"
+          />
+        </div>
+        <div class="login-field-password d-flex flex-column gap-1">
+          <label for="password">Password: </label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="p-1"
+            formControlName="password"
+          />
+        </div>
+        <div class="login-field-confirm-password d-flex flex-column gap-1">
+          <label for="confirm-password">Confirm Password: </label>
+          <input
+            type="password"
+            name="confirm-password"
+            id="confirm-password"
+            class="p-1"
+          />
+        </div>
+        <div class="align-self-center">
+          <button class="btn btn-dark px-5 py-2 fw-bold" (click)="onLogin()">
+            Register
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

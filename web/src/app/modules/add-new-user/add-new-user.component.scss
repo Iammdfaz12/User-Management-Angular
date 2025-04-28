@@ -1,0 +1,5 @@
+.custom-blur-bg {
+    background-color: #ffffff3c; /* Semi-transparent white */
+    backdrop-filter: blur(4px);  /* Small blur */
+    -webkit-backdrop-filter: blur(4px); /* For Safari */
+  }

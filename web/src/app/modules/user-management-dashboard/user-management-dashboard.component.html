@@ -1,0 +1,84 @@
+<div
+  class="main-container vh-100 d-flex flex-column position-absolute w-100 position-relative"
+>
+  <!-- Header -->
+  <div
+    class="text-center w-100 bg-dark text-light p-3 d-flex justify-content-between align-items-center"
+  >
+    <h2 class="mb-0 align-self-center">User Management Dashboard</h2>
+    <div class="d-flex gap-3 align-items-center">
+      <button type="button" class="btn btn-success" (click)="toggleModal()">
+        Add New User
+      </button>
+      <button
+        class="bg-transparent border-0 dropdown-toggle"
+        id="profileDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-user fa-xl" style="color: #ffffff"></i>
+      </button>
+      <ul
+        class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+        aria-labelledby="profileDropdown"
+      >
+        <li>
+          <button (click)="logOut()" class="dropdown-item text-danger">
+            <i class="fas fa-sign-out-alt me-2"></i>Logout
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div
+    class="container-fluid flex-grow-1 d-flex justify-content-center align-items-start py-4"
+  >
+    <div class="table-responsive w-100 px-2 px-sm-4 px-md-5">
+      <table
+        class="table table-bordered table-striped align-middle text-center"
+      >
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <!-- <th scope="col">Password</th> -->
+            <th scope="col">Mobile Number</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of userDetails; let index = index">
+            <th scope="row">{{ index + 1 }}</th>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+            <!-- <td>fazil123</td> -->
+            <td>{{ user.mobile_number }}</td>
+            <td>
+              <div class="d-flex justify-content-center gap-2">
+                <button
+                  class="btn btn-sm btn-outline-dark"
+                  (click)="onEditUserDetails(index)"
+                >
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="deleteUser(index)"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<app-add-new-user class="position-absolute w-100"></app-add-new-user>
