@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import JSEncrypt from 'jsencrypt';
 @Injectable({
   providedIn: 'root',
 })
@@ -63,6 +64,18 @@ export class DataService {
     this.editMode = false;
   }
 
+  passwordEncryption(password: string) {
+    const encrypt$ = new JSEncrypt();
+    const publicKey = sessionStorage.getItem('publicKey');
+    if (!publicKey) {
+      console.error('Public key not found');
+      return;
+    }
+    encrypt$.setKey(publicKey);
+    const encryptedPassword = encrypt$.encrypt(password);
+    return encryptedPassword;
+  }
+
   // Routes
 
   // Getting all users
@@ -72,6 +85,9 @@ export class DataService {
 
   // Creating a new user
   addNewUser(userDetails: any): Observable<any> {
+    console.log(userDetails);
+    userDetails.password = this.passwordEncryption(userDetails.password);
+    console.log(userDetails);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
