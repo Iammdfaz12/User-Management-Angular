@@ -27,12 +27,17 @@ export class LoginPageComponent implements OnInit {
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/user-management-dashboard']);
     }
+
+    this.authService.getPublicKey().subscribe((res: { publicKey: any }) => {
+      if (res) {
+        sessionStorage.setItem('publicKey', res.publicKey);
+      }
+    });
   }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-
 
   onLogin() {
     if (this.loginForm.valid) {

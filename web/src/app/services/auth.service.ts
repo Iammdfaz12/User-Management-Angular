@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { JSEncrypt } from 'jsencrypt';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +19,24 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  ngOnInit() {}
+
+  getPublicKey() {
+    return this.http.post<any>(`${this.apiUrl}/getPublicKey`, {});
+  }
+
   login(email: string, password: string) {
+    var encrypt$ = new JSEncrypt();
+    const publicKey = sessionStorage.getItem('publicKey');
+    if (publicKey) {
+      encrypt$.setPublicKey(publicKey);
+    } else {
+      throw new Error('Public key not found in sessionStorage.');
+    }
+    const encryptedPassword = encrypt$.encrypt(password);
+    
     return this.http
-      .post<any>(`${this.apiUrl}/login`, { email, password })
+      .post<any>(`${this.apiUrl}/login`, { email, encryptedPassword })
       .pipe(
         tap((response) => {
           // console.log('Login response:', JSON.stringify(response.token));

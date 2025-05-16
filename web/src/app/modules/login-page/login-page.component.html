@@ -25,7 +25,9 @@
             formControlName="email"
           />
         </div>
-        <div class="login-field-password d-flex flex-column gap-1 position-relative">
+        <div
+          class="login-field-password d-flex flex-column gap-1 position-relative"
+        >
           <label for="password">Password: </label>
           <input
             [type]="showPassword ? 'text' : 'password'"
@@ -36,15 +38,15 @@
             formControlName="password"
           />
           <span
-                  class="position-absolute z-3 translate-middle-y pe-1"
-                  style="top: 70%; right: 10px; cursor: pointer"
-                  (click)="togglePasswordVisibility()"
-                >
-                  <i
-                    [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
-                    style="color: black"
-                  ></i>
-                </span>
+            class="position-absolute z-3 translate-middle-y pe-1"
+            style="top: 70%; right: 10px; cursor: pointer"
+            (click)="togglePasswordVisibility()"
+          >
+            <i
+              [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+              style="color: black"
+            ></i>
+          </span>
         </div>
         <div class="align-self-center">
           <button class="btn btn-dark px-5 py-2 fw-bold" (click)="onLogin()">
